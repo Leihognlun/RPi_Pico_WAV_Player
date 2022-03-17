@@ -47,13 +47,18 @@ static button_status_t get_sw_status()
     button_status_t ret;
     if (gpio_get(PIN_SW_CENTER) == false) {
         ret = ButtonCenter;
+        printf("ButtonCenter \n");
     } else if (gpio_get(PIN_SW_PLUS) == false) {
         ret = ButtonPlus;
+        printf("ButtonPlus \n");
     } else if (gpio_get(PIN_SW_MINUS) == false) {
         ret = ButtonMinus;
+        printf("ButtonMinus\n");
     } else {
         ret = ButtonOpen;
+        printf("ButtonOpen\n");
     }
+    
     return ret;
 }
 
@@ -284,7 +289,7 @@ void ui_init()
 
 ui_mode_enm_t ui_update()
 {
-    //printf("%s\n", ui_mode->getName());
+    printf("%s\n", ui_mode->getName());
     UIMode *ui_mode_next = ui_mode->update();
     if (ui_mode_next != ui_mode) {
         ui_mode_next->entry(ui_mode);
