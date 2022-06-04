@@ -27,7 +27,7 @@
 #include "ConfigMenu.h"
 
 //#define USE_ACTIVE_BATTERY_CHECK // Additional circuit needed
-//#define NO_BATTERY_VOLTAGE_CHECK
+#define NO_BATTERY_VOLTAGE_CHECK
 
 // === Pin Settings for power management ===
 // DC/DC mode selection Pin
