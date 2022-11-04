@@ -38,8 +38,8 @@ add_executable(${bin_name}
     src/ConfigParam.cpp
 )
 
-#pico_enable_stdio_usb(${bin_name} 1) --> pico_stdio_uart
-#pico_enable_stdio_uart(${bin_name} 1) --> my_pico_stdio_usb
+#pico_enable_stdio_usb(${bin_name} 0) #--> pico_stdio_uart
+#pico_enable_stdio_uart(${bin_name} 0)# --> my_pico_stdio_usb
 
 target_link_libraries(${bin_name} 
         pico_stdlib

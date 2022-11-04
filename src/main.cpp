@@ -22,13 +22,13 @@ static inline uint32_t _millis(void)
 
 int main() {
     // Call stdio_usb_init() in pw_set_pll_usb_96MHz() for modified code rather than stdio_init_all()
-    //stdio_init_all();
+    stdio_init_all();
 
     // Set PLL_USB 96MHz and use it for PIO clock for I2S
     pw_set_pll_usb_96MHz();
 
     // Power Manage Init
-    pm_init();
+    // pm_init();
 
     // LED
     gpio_init(PICO_DEFAULT_LED_PIN);
@@ -43,7 +43,7 @@ int main() {
     printf("Raspberry Pi Pico Player ver. %s\n", VersionStr);
 
     // ADC Initialize
-    adc_init();
+   // adc_init();
 
     // UI initialize
     ui_init();

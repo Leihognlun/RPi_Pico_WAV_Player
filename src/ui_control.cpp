@@ -13,14 +13,15 @@
 #include "ui_control.h"
 
 // SW PIN setting
-static const uint32_t PIN_SW_PLUS = 22;
+static const uint32_t PIN_SW_PLUS = 21;
 // static const uint32_t PIN_SW_CENTER = 21; // this pin is not used any longer (integrated into pin 26 ADC input)
-static const uint32_t PIN_SW_MINUS = 20;
+static const uint32_t PIN_SW_MINUS = 22;
+static const uint32_t PIN_SW_CENTER_19 = 20;
 
 // ADC Timer
 static repeating_timer_t timer;
 // ADC Timer frequency
-const int TIMER_UI_BUTTON_HZ = 20;
+const int TIMER_UI_BUTTON_HZ = 19;
 
 // Android Headphone Remote Control Pin (GPIO26: ADC0)
 static const uint32_t PIN_HP_BUTTON = 26;
@@ -57,9 +58,12 @@ static button_status_t get_sw_status()
     } else if (gpio_get(PIN_SW_MINUS) == false) {
         ret = ButtonMinus;
         printf("ButtonMinus\n");
-    } else {
+    } else if (gpio_get(PIN_SW_CENTER_19) == false) {
+        ret = ButtonCenter;
+        printf("ButtonCenter\n");
+    }else {
         ret = ButtonOpen;
-        printf("ButtonOpen\n");
+       // printf("ButtonOpen\n");
     }
     
     return ret;
@@ -87,7 +91,7 @@ static button_status_t adc0_get_hp_button()
     } else { // others
         ret = ButtonOpen;
     }
-    return ret;
+    return ret = ButtonOpen;
 }
 
 static int count_center_clicks()
@@ -130,7 +134,8 @@ static void update_button_action()
     int i;
     int center_clicks;
     button_status_t button;
-    button_status_t button_hp = adc0_get_hp_button();
+    button_status_t button_hp = ButtonOpen;
+    //button_status_t button_hp = adc0_get_hp_button();
     button_status_t button_sw = get_sw_status();
     if (button_hp == ButtonCenter || button_sw == ButtonCenter) {
         button = ButtonCenter;
@@ -209,7 +214,7 @@ bool timer_callback_ui_button(repeating_timer_t *rt) {
 static int timer_init_ui_button()
 {
     // ADC Pin initialize
-    adc_gpio_init(PIN_HP_BUTTON);
+    //adc_gpio_init(PIN_HP_BUTTON);
 
     // negative timeout means exact delay (rather than delay between callbacks)
     if (!add_repeating_timer_us(-1000000 / TIMER_UI_BUTTON_HZ, timer_callback_ui_button, nullptr, &timer)) {
@@ -270,12 +275,20 @@ void ui_init()
     queue_init(&btn_evt_queue, sizeof(element_t), QueueLength);
 
     // ADC and Timer setting
-    timer_init_ui_button();
+   timer_init_ui_button();
 
     // SW GPIO initialize
+
+    
+    gpio_set_pulls(PIN_SW_PLUS,1,0); 
     gpio_set_dir(PIN_SW_PLUS, GPIO_IN);
 //    gpio_set_dir(PIN_SW_CENTER, GPIO_IN);
+
+    gpio_set_pulls(PIN_SW_MINUS,1,0);
     gpio_set_dir(PIN_SW_MINUS, GPIO_IN);
+
+    gpio_set_pulls(PIN_SW_CENTER_19,1,0);
+    gpio_set_dir(PIN_SW_CENTER_19, GPIO_IN);
 
     //UIMode::initialize(&vars, dir_stack);
     UIMode::initialize(&vars);
