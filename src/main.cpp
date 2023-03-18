@@ -34,6 +34,29 @@ int main() {
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
     gpio_put(PICO_DEFAULT_LED_PIN, 0);
+    gpio_init(11);
+    gpio_set_dir(11, GPIO_OUT);
+    gpio_put(11, 1);
+
+    gpio_init(13);
+    gpio_set_dir(13, GPIO_OUT);
+    gpio_put(13, 0);
+
+    gpio_init(15);
+    gpio_set_dir(15, GPIO_OUT);
+    gpio_put(15, 0);
+
+    gpio_init(20);
+    gpio_set_dir(20, GPIO_OUT);
+    gpio_put(20, 0);
+
+    gpio_init(22);
+    gpio_set_dir(22, GPIO_OUT);
+    gpio_put(22, 0);
+
+    gpio_init(24);
+    gpio_set_dir(24, GPIO_OUT);
+    gpio_put(24, 0);
 
     // Wait before stable power-on for 750ms
     // to avoid unintended power-on when Headphone plug in

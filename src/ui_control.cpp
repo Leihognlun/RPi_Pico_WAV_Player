@@ -13,10 +13,10 @@
 #include "ui_control.h"
 
 // SW PIN setting
-static const uint32_t PIN_SW_PLUS = 21;
+static const uint32_t PIN_SW_PLUS = 20;
 // static const uint32_t PIN_SW_CENTER = 21; // this pin is not used any longer (integrated into pin 26 ADC input)
-static const uint32_t PIN_SW_MINUS = 22;
-static const uint32_t PIN_SW_CENTER_19 = 20;
+static const uint32_t PIN_SW_MINUS = 23;
+static const uint32_t PIN_SW_CENTER_19 = 21;
 
 // ADC Timer
 static repeating_timer_t timer;
