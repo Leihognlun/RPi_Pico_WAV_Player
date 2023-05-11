@@ -33,7 +33,7 @@ int main() {
     // LED
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
-    gpio_put(PICO_DEFAULT_LED_PIN, 0);
+    gpio_put(PICO_DEFAULT_LED_PIN, 1);
     gpio_init(11);
     gpio_set_dir(11, GPIO_OUT);
     gpio_put(11, 1);
@@ -74,6 +74,7 @@ int main() {
     // UI Loop (infinite)
     const int LoopCycleMs = UIMode::UpdateCycleMs; // loop cycle (50 ms)
     while (true) {
+        gpio_put(PICO_DEFAULT_LED_PIN, 1);
         uint32_t time = _millis();
         ui_update();
         time = _millis() - time;
